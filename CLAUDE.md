@@ -23,7 +23,7 @@ Workshop length: 3 hours.
 
 ### Colab badge
 Every notebook must include a Colab badge link in the first markdown cell, using this pattern:
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UoA-eResearch/embedding-llms-qualitative-data-workshop/blob/main/notebooks/[filename].ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/[filename].ipynb)
 Replace [filename] with the actual notebook filename.
 
 ### Execution environment
