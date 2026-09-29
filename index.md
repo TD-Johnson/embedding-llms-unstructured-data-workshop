@@ -7,18 +7,24 @@ This hands-on workshop introduces researchers to using large language models (LL
 
 ## How to use this workshop
 
-Click a notebook link below, sign in with your Google account, and run the cells from top to bottom.
+You run the workshop notebooks on your own laptop, in VS Code. Before the workshop, follow the [setup guide](learners/00-setup.md). In short:
+
+1. Install VS Code and uv.
+2. [Download the workshop as a ZIP file](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/archive/refs/heads/main.zip) and unzip it.
+3. Open the unzipped folder in VS Code and run `uv sync` in the terminal.
+
+On the day, connect to the university VPN, open each notebook from the `notebooks` folder, and run the cells from top to bottom.
 
 ## Workshop notebooks
 
-| Episode | Open in Colab |
-|---------|--------------|
-| 01 — Environment setup | <a href="https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/01-environment-setup.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a> |
-| 02 — LLMs as research instruments | <a href="https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/02-llms-as-instruments.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a> |
-| 03 — Exploratory analysis | <a href="https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/03-prompt-engineering.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a> |
-| 04 — Thematic analysis and validation | <a href="https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/04-thematic-analysis.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a> |
-| 05 — Visual feature extraction | <a href="https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/05-visual-extraction.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a> |
+| Episode | File | Preview on GitHub |
+|---------|------|-------------------|
+| 01 — Environment setup | `notebooks/01-environment-setup.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/01-environment-setup.ipynb) |
+| 02 — LLMs as research instruments | `notebooks/02-llms-as-instruments.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/02-llms-as-instruments.ipynb) |
+| 03 — Exploratory analysis | `notebooks/03-prompt-engineering.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/03-prompt-engineering.ipynb) |
+| 04 — Thematic analysis and validation | `notebooks/04-thematic-analysis.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/04-thematic-analysis.ipynb) |
+| 05 — Visual feature extraction | `notebooks/05-visual-extraction.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/05-visual-extraction.ipynb) |
 
 ---
 
-Developed by Dr Kyle Hemming, Centre for eResearch, University of Auckland
+Developed by Dr Toby Johnson, Centre for eResearch, University of Auckland

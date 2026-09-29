@@ -1,6 +1,7 @@
 ## Contributing
 
-This is a standalone, self-paced workshop delivered as Google Colab notebooks.
+This is a standalone, self-paced workshop delivered as Jupyter notebooks that
+participants run locally in VS Code, using a uv environment.
 Contributions of all kinds are welcome: improvements to notebook content,
 bug reports, and reviews of proposed changes.
 
@@ -39,7 +40,8 @@ The workshop is scoped to a 3-hour session. If you want to introduce a new
 idea, please (a) estimate how long it will take to teach and (b) explain what
 you would remove to make room for it.
 
-All code must be Python, runnable in Google Colab without local installation.
+All code must be Python, runnable in the workshop's uv environment. Add any new
+packages to `pyproject.toml` with `uv add <package>`.
 
 ### Using GitHub
 

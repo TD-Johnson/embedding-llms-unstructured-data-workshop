@@ -2,9 +2,14 @@
 
 ### Format and delivery
 - 00 and 06: Powerpoint slides with instructor notes in episodes/
-- 01-05: Google Colab Jupyter notebooks in notebooks/
-- GitHub Pages landing page links directly to each notebook via Colab badge
-- Participants run notebooks in Colab — no local installation
+- 01-05: Jupyter notebooks in notebooks/
+- Participants download the repo as a ZIP from GitHub and run the notebooks
+  locally in VS Code, in a uv environment (`uv sync`) — set up before the day
+  using learners/00-setup.md
+- LLM runs on Dell Pro Max (GB10) machines serving vLLM inside the university
+  network — participants must be on the university VPN
+- Each participant gets a base URL + API key on the day and stores them in a
+  .env file (notebook 01)
 
 ### Designated cut on the day
 Episode 05 is the cut episode if running behind.
@@ -47,11 +52,11 @@ vs confident on well-known ones like the Privacy Act
 01 — Environment setup (20 mins)
      Notebook: notebooks/01-environment-setup.ipynb
      Paper component: Step 1 — Ingestion infrastructure
-     Core concept: Colab, Python basics, Groq API, XML parsing
+     Core concept: VS Code notebooks, Python basics, vLLM API, XML parsing
      Exercises:
      - Python cells as calculator
      - Variables and print()
-     - Groq API key setup via Google OAuth
+     - Base URL + API key stored in .env (rename .env.example)
      - Run setup cell → "Setup complete."
      Framing sentence: "Step 1 of the paper's workflow is ingestion —
      parsing the XML files NZ government publishes for every Act.
@@ -308,9 +313,12 @@ COMMITTEE_KEYWORDS = {
 ### Known risk points
 | Risk | Mitigation |
 |------|-----------|
-| Groq OAuth fails | Backup keys ready; walk through signup on projector |
-| Rate limit hit | Unlikely free tier; if hit, participants share output |
-| XML fetch fails | Pre-load Privacy Act sections as fallback variable |
+| Setup not done before the day | Walk through learners/00-setup.md on projector during 00; pair with a neighbour |
+| Setup cell: "Could not connect to the LLM" | Check VPN first, then the .env values |
+| Setup cell: "Could not find LLM_BASE_URL" | File still named .env.example, saved in notebooks/, or not saved |
+| ModuleNotFoundError | Wrong kernel — select .venv in the top-right kernel picker |
+| Slow responses | Several participants share each machine; spread participants across machines |
+| XML fetch fails | NB04 reads data/privacy-act-2020.xml locally; no fetch needed |
 | NB05 over time | Designated cut — skip cleanly |
 | Participants stuck | Encourage skipping and continuing — errors expected |
 | Jaccard function errors | Pre-test function in both NB04 and NB05 before delivery |

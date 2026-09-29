@@ -21,39 +21,62 @@ Workshop length: 3 hours.
 - learners/        → participant setup instructions
 - profiles/        → learner personas
 
-### Colab badge
-Every notebook must include a Colab badge link in the first markdown cell, using this pattern:
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/[filename].ipynb)
-Replace [filename] with the actual notebook filename.
+### First cell
+Notebooks have no Colab badge (they run locally). The first markdown cell holds
+the title, duration and overview.
 
 ### Execution environment
-All code is Python, implemented in Google Colab Jupyter notebooks.
-Participants authenticate with their university Google account to access Colab —
-no local installation required.
+All code is Python, in Jupyter notebooks that participants run locally in VS Code.
+Participants download the repo as a ZIP from GitHub, then run `uv sync` to create
+a `.venv` from `pyproject.toml` (Python version pinned in `.python-version`).
+Setup steps are in learners/00-setup.md and are done before the workshop.
+- No `!pip install` in notebooks — add packages with `uv add <package>`.
+- Notebooks run with the `notebooks/` folder as the working directory, so local
+  data is read from `../data/`.
 
-### LLM API: Groq free tier
-- API key created on workshop day via groq.com using university Google account
-  (OAuth — no email verification required)
-- Primary model: "llama-3.3-70b-versatile" (text generation, structured outputs,
-  thematic analysis)
-- Vision model: "meta-llama/llama-4-maverick-17b-128e-instruct" (image analysis)
-- Rate limits: generous free tier, unlikely to be hit in workshop exercises
-- Single model variable defined at top of each notebook — swap in one place if
-  model is deprecated
+### LLM API: vLLM on university hardware
+- Models run on Dell Pro Max (GB10) machines serving vLLM inside the university
+  network. Participants must be on the university VPN.
+- Accessed with the `openai` Python library (OpenAI-compatible API), not `groq`.
+- Each participant gets a base URL + API key on the day, stored in a `.env` file
+  at the repo root (`LLM_BASE_URL`, `LLM_API_KEY`); `.env.example` is the template.
+  `.env` is gitignored.
+- Each machine serves one model. The setup cell reads its name from the server
+  (`client.models.list()`), so model names are not hardcoded.
+- `TEXT_MODEL` and `VISION_MODEL` are defined once in the setup cell.
 
 ### Standard notebook setup cell (every notebook)
 Every notebook begins with this cell:
-    !pip install groq requests lxml Pillow
+    # ============================================================
+    # SETUP CELL — Run this once at the start of every notebook
+    # ============================================================
+
     import os, json, base64, requests, io
-    from groq import Groq
+    from dotenv import load_dotenv
+    from openai import OpenAI
     from lxml import etree
     from PIL import Image
     from IPython.display import Image as IPImage, display
 
-    os.environ["GROQ_API_KEY"] = "paste_your_key_here"
-    client = Groq(api_key=os.environ["GROQ_API_KEY"])
-    TEXT_MODEL = "llama-3.3-70b-versatile"
-    VISION_MODEL = "meta-llama/llama-4-maverick-17b-128e-instruct"
+    # Load your base URL and API key from the .env file (set up in notebook 01)
+    load_dotenv(override=True)
+    if not os.getenv("LLM_BASE_URL") or not os.getenv("LLM_API_KEY"):
+        raise RuntimeError("Could not find LLM_BASE_URL or LLM_API_KEY. Check your .env file (see notebook 01).")
+
+    client = OpenAI(base_url=os.environ["LLM_BASE_URL"], api_key=os.environ["LLM_API_KEY"])
+
+    # Each Dell Pro Max machine serves one model. Ask the machine for its name.
+    try:
+        TEXT_MODEL = client.models.list().data[0].id
+    except Exception as error:
+        raise RuntimeError(
+            "Could not connect to the LLM. Check that you are on the university VPN "
+            "and that the values in your .env file are correct."
+        ) from error
+    VISION_MODEL = TEXT_MODEL   # the same model reads both text and images
+
+    print(f"Connected to {TEXT_MODEL}.")
+    print("Setup complete.")
 
 ### Data source 1: NZ Legislation XML
 No API key required. Direct XML access via URL pattern.
@@ -79,16 +102,16 @@ New Zealand's Mental Health Act as a Case Study.
 Information (MDPI), February 2026.
 https://www.mdpi.com/2078-2489/17/2/161
 Demonstrates LLM-assisted topic modelling on NZ legislation specifically.
-For images, use url = "https://commons.wikimedia.org/w/api.php" and resize to fit with Groq API limits (width = 400) and use model "meta-llama/llama-4-scout-17b-16e-instruct"
+For images, use url = "https://commons.wikimedia.org/w/api.php" and resize to width = 400 before sending to VISION_MODEL
 
 ## Notebook Map (locked structure v1)
 
 ### Format and delivery
 - 00 and 06: Powerpoint slides with instructor notes in instructors/
-- 01-05: Google Colab Jupyter notebooks, one per notebook
+- 01-05: Jupyter notebooks, one per notebook
 - Notebooks live in notebooks/ folder in this repo
-- GitHub Pages site links to each notebook directly
-- Participants run notebooks in Colab — no local installation
+- GitHub Pages site links to the ZIP download, setup guide, and notebook previews
+- Participants run notebooks locally in VS Code, on the university VPN
 
 ## Writing style
 - Content lives in notebook markdown cells, not standalone .md files.

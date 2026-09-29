@@ -1,0 +1,15 @@
+[project]
+name = "embedding-llms-workshop"
+version = "0.1.0"
+description = "Programmatically using LLMs for qualitative research methods (workshop notebooks)"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel",
+    "lxml",
+    "matplotlib",
+    "matplotlib-venn",
+    "openai",
+    "pillow",
+    "python-dotenv",
+    "requests",
+]
