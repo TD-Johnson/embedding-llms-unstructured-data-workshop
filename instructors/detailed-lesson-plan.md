@@ -58,6 +58,9 @@ vs confident on well-known ones like the Privacy Act
      - Variables and print()
      - Base URL + API key stored in .env (rename .env.example)
      - Run setup cell → "Setup complete."
+     - Ping the Dell Pro Max (client.models.list()) → "The machine is
+       ready." Confirms VPN, API key and loaded model. No chat call —
+       participants do not talk to the LLM until NB02.
      Framing sentence: "Step 1 of the paper's workflow is ingestion —
      parsing the XML files NZ government publishes for every Act.
      By the end of this notebook you will have exactly that."
@@ -68,15 +71,22 @@ vs confident on well-known ones like the Privacy Act
      Paper component: Stochasticity finding (86% vs 96% precision)
      Core concept: LLMs as probabilistic instruments, not oracles
      Exercises:
-     a. Ask model about Privacy Act 2020 (no source data)
+     a. First message to the model (moved here from NB01) — send
+        "What is the capital of France?" — model + messages only, no
+        extra_body. Then walk through client.chat.completions.create():
+        model, messages, role/content,
+        response.choices[0].message.content. "Your turn" cell adds
+        extra_body=NO_THINKING (explained there) and asks a question
+        from their own research area.
+     b. Ask model about Privacy Act 2020 (no source data)
         — what does it know implicitly?
-     b. Ask model about Wool Board Disestablishment Act 2009
+     c. Ask model about Wool Board Disestablishment Act 2009
         — contrast: knowledge is patchy on obscure Acts
-     c. Temperature comparison: same prompt at temp=0 (twice)
+     d. Temperature comparison: same prompt at temp=0 (twice)
         and temp=1 (twice)
         Discussion: "The paper measured LLM precision at 86% vs 96%
         for rule-based methods. You are now experiencing why."
-     d. Introduce prompt structure: role / instruction / context /
+     e. Introduce prompt structure: role / instruction / context /
         output format
      Framing sentence: "The paper found LLMs are less precise and
      less consistent than deterministic methods — temperature is
