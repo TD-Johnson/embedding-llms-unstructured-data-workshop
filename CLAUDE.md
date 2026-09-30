@@ -44,6 +44,12 @@ Setup steps are in learners/00-setup.md and are done before the workshop.
 - Each machine serves one model. The setup cell reads its name from the server
   (`client.models.list()`), so model names are not hardcoded.
 - `TEXT_MODEL` and `VISION_MODEL` are defined once in the setup cell.
+- The model is NVIDIA Nemotron 3 Nano Omni (a reasoning model). Reasoning is
+  turned off to keep responses fast on shared machines: every
+  `client.chat.completions.create(...)` call passes `extra_body=NO_THINKING`
+  (defined in the setup cell). Do not use `/no_think` in the system prompt —
+  with this model it moves the answer into the reasoning field and leaves
+  `message.content` empty.
 
 ### Standard notebook setup cell (every notebook)
 Every notebook begins with this cell:
@@ -74,6 +80,10 @@ Every notebook begins with this cell:
             "and that the values in your .env file are correct."
         ) from error
     VISION_MODEL = TEXT_MODEL   # the same model reads both text and images
+
+    # Turn off the model's "thinking" step. Answers come back several times faster,
+    # which matters when many people share one machine.
+    NO_THINKING = {"chat_template_kwargs": {"enable_thinking": False}}
 
     print(f"Connected to {TEXT_MODEL}.")
     print("Setup complete.")
