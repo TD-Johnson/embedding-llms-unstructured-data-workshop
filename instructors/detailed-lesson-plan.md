@@ -133,14 +133,16 @@ vs confident on well-known ones like the Privacy Act
 
      Act 2 [mandatory, ~10 mins]:
      Tai et al. (2024) replication — presence/absence coding
-     Five keywords coded for presence (1) or absence (0):
-     consent / individual / purpose / disclosure / collect
+     Eight keywords coded for presence (1) or absence (0):
+     consent / individual / purpose / disclosure / collect /
+     payment / children / employment (last three are absent —
+     a check that coders, human and LLM, can say "no")
      - Step 1: Manual coding — participants fill `your_coding` dict
        with 1/0 values for each keyword BEFORE running LLM cell
      - Step 2: LLM coding — prompt returns JSON only; parsed into
        `llm_coding` dict with try/except around json.loads
      - Step 3: Comparison table — auto-generated from the two dicts,
-       counts agreements, prints "X out of 5"
+       counts agreements, prints "X out of 8"
      Reference framing: "Tai et al. (2024) used an LLM to code
      presence/absence of psychological constructs in interview
      transcripts. Agreement with human coders was comparable to
