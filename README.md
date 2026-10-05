@@ -1,6 +1,6 @@
-# Programmatically Using LLMs for Qualitative Research Methods
+# Programmatically Using LLMs for Unstructured Data
 
-This hands-on workshop introduces researchers to using large language models (LLMs) programmatically to support qualitative research workflows. Using real New Zealand legislative data, you will practice prompting techniques to prepare, label, and analyse unstructured text and images — then learn how to critically evaluate and validate what the model produces. No prior coding or machine learning experience is required.
+This three-hour, hands-on workshop shows researchers how to build large language models (LLMs) into their research workflows with a few lines of Python. Instead of pasting text into a chat window, you send it to an LLM from code. That lets you apply the same instructions to one document or to hundreds. You work with real New Zealand material: you code passages of the Privacy Act 2020, extract features from World War I posters held by Archives New Zealand, and find themes across Givealittle fundraising campaigns. Along the way you practise prompting techniques to prepare, label and analyse unstructured text and images. You also learn to spot hallucinations and bias, and to check the LLM's output against your own judgement and other sources. 
 
 ## How to use this workshop
 
