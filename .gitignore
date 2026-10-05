@@ -20,3 +20,6 @@ CLAUDE.md
 
 # LLM extractions from notebook 04b — participants' own outputs, keep local
 data/extracted/
+
+# Any data. Participants will download the data from github
+data/

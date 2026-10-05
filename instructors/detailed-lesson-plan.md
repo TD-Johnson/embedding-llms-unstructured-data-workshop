@@ -12,7 +12,7 @@
   .env file (notebook 01)
 
 ### Designated cut on the day
-Episode 05 is the cut episode if running behind.
+Episode 04 is the cut episode if running behind.
 Participants lose a fun exercise, not a core concept.
 
 ### Narrative spine (paper reference throughout)
@@ -25,12 +25,14 @@ Episode → Paper component mapping:
 01 → Ingestion (Step 1): XML parsing infrastructure
 02 → Stochasticity finding: 86% vs 96% precision, temperature effects
 03 → Exploratory analysis + Extraction (Step 2): Tai et al. presence/absence coding
-04 → Semantic Enrichment + Validation (Steps 4 + 5 + 6):
-      theme generation, persona experiment, Jaccard validation
-05 → Cross-modal application: same pipeline, image data
+04 → Cross-modal application: same pipeline, image data;
+      Jaccard validation against committee domains (Step 6)
+05 → Extraction at scale + Semantic Enrichment + Validation
+      (Steps 2 + 4 + 5): loop over many documents, themes from
+      per-document summaries, check against an independent reference
 
 ### Primary dataset
-Privacy Act 2020 (used in NB01–NB04)
+Privacy Act 2020 (used in NB01–NB03)
 https://legislation.govt.nz/act/public/2020/31/en/latest.xml
 
 ### Fun Act for NB02 implicit knowledge exercise
@@ -160,68 +162,15 @@ vs confident on well-known ones like the Privacy Act
 
      Bridge to NB04: "You controlled output through prompt structure
      and tested coding reliability against your own judgement. NB04
-     uses the same skills — structured prompts, perspective shifts,
-     manual verification — for theme generation across the full Act."
+     uses the same skills — structured prompts and checking against
+     a trusted source — on a new kind of data: images."
 
      Outcomes: prompt structure as a methodological choice;
                presence/absence coding replicated from Tai et al.;
-               disagreement as evidence; bridge to thematic analysis
+               disagreement as evidence; bridge to image extraction
 
-04 — Thematic analysis and validation (35 mins)
-     Notebook: notebooks/04-thematic-analysis.ipynb
-     Paper component: Steps 4+5+6 — Semantic Enrichment, Analysis,
-                      Interpretation; Component 3 (LLM-assisted topic
-                      modelling); Component 5 (Jaccard validation)
-     Dataset: Privacy Act 2020 XML (same corpus, deeper analysis)
-     Reference method: tutorial-friendly version of LLM-assisted LDA
-                       from Ardekani et al. (2026) — same concepts,
-                       simplified for 35-minute delivery
-     
-     Exercise a [mandatory, ~10 mins]:
-     Inductive theme generation
-     - Neutral prompt: "Identify 5-7 recurring themes in these sections.
-       Focus on substantive themes and obligations. Exclude procedural
-       boilerplate. Return JSON."
-     - Output: theme list + 10-15 keywords per theme
-     - This output feeds directly into exercises b and c
-     
-     Exercise b [mandatory, ~10 mins]:
-     Persona experiment
-     - Run same prompt with positioned persona:
-       e.g. "You are a privacy rights advocate analysing
-       surveillance risks in this legislation"
-     - Compare keyword sets between neutral and positioned outputs
-     - Discussion: "Which prompt is neutral? Is either neutral?
-       What does your methods section need to say about this?"
-     - Key framing: the tautology is deliberate and instructive —
-       naming that a positioned prompt finds that persona's keywords
-       is the methodological insight, not a flaw to hide
-     
-     Exercise c [mandatory, ~10 mins]:
-     Jaccard validation
-     - Pre-built COMMITTEE_KEYWORDS dictionary provided (see below)
-     - Pre-written jaccard_similarity() function provided
-     - Compare neutral theme keywords against each committee set
-     - Compare positioned theme keywords against each committee set
-     - Output: which committee does each theme align with?
-     - Discussion: "Did your positioned prompt move the needle toward
-       its target committee? What does that mean for validity?"
-     - Framing: "The paper validated their clusters this way —
-       comparing computationally derived communities against
-       parliamentary committee domains. You just did the same."
-     
-     Optional exercise d [stretch]:
-     Adversarial prompting — ask LLM to argue against its own themes
-     Reference: CHI 2025 qualitative LLM paper
-     
-     Outcomes: inductive coding experience; understand prompt framing
-               as methodological choice; know three validation
-               techniques: consistency check / Jaccard / adversarial
-
----- BREAK (10 mins) ----
-
-05 — Visual feature extraction (25 mins) [DESIGNATED CUT IF BEHIND]
-     Notebook: notebooks/05-visual-extraction.ipynb
+04 — Visual feature extraction (25 mins) [DESIGNATED CUT IF BEHIND]
+     Notebook: notebooks/04-visual-extraction.ipynb
      Paper component: no direct equivalent — demonstrates pipeline
                       generalises beyond legislative text
      Dataset: Archives NZ via Wikimedia Commons API
@@ -246,11 +195,10 @@ vs confident on well-known ones like the Privacy Act
      
      Exercise b [mandatory, ~10 mins]:
      Cross-modal Jaccard validation
-     - Pre-written jaccard_similarity() function (same as NB04)
-     - Compare image keywords against NB04 theme keywords
+     - Pre-written jaccard_similarity() function; Jaccard similarity
+       is introduced here for the first time
      - Compare image keywords against COMMITTEE_KEYWORDS
-     - Output: "This image most aligns with [X] committee and
-       [Y] theme"
+     - Output: "This image most aligns with [X] committee"
      - Discussion: "Does the model's assessment match what you see?
        What does a discrepancy tell you?"
      - Framing: "You used the same extraction and validation pipeline
@@ -265,6 +213,38 @@ vs confident on well-known ones like the Privacy Act
      Outcomes: consolidate validation techniques across data types;
                see pipeline generalises beyond text
 
+---- BREAK (10 mins) ----
+
+05 — Looping an LLM over many documents (40 mins)
+     Notebook: notebooks/05-looping-over-documents.ipynb
+     Paper component: Steps 2 + 4 + 5 — extraction at scale, semantic
+                      enrichment (per-document summaries), analysis
+     Dataset: 306 Givealittle health fundraising campaigns, scraped
+              ahead of time; CSV downloaded from the workshop's GitHub
+              repository (data/givealittle_health.csv)
+     Builds on: NB03 (JSON output) and NB04 (image preparation,
+                text + image content in one message)
+
+     Part 1: What is a loop? — loop-and-collect pattern on three
+             short interview snippets
+     Part 2: The data — how it was collected (scraping etiquette),
+             load the CSV, look at one campaign first
+     Part 3: The extraction loop — text + hero photo per campaign,
+             capped by MAX_CAMPAIGNS on a random sample; location held
+             back on purpose for Part 5
+     Part 4: Themes across campaigns — combine the per-campaign
+             summaries in one call and ask for 3-5 themes
+     Part 5: Checking the LLM's work
+             - Check 1: spot check one campaign yourself
+             - Check 2: compare the model's region against the
+               held-back location (independent reference)
+             - Check 3: fields that nobody could verify
+     Optional stretch: reuse the pattern on your own documents
+
+     Outcomes: loop → gather → check pattern; themes from summaries;
+               a loop multiplies whatever the prompt does, so check
+               before scaling up
+
 06 — Wrap up (10 mins)
      Format: Powerpoint + discussion
      Return to six-step workflow slide from episode 00
@@ -277,11 +257,11 @@ vs confident on well-known ones like the Privacy Act
                     is yours to choose."
 
 ### Timing
-00: 15 + 01: 20 + 02: 20 + break: 10 + 03: 30 + 04: 35
-+ break: 10 + 05: 25 + 06: 10 = 175 mins
-25 mins buffer for API issues, questions, slippage
+00: 15 + 01: 20 + 02: 20 + break: 10 + 03: 30 + 04: 25
++ break: 10 + 05: 40 + 06: 10 = 180 mins
+No buffer left in 3 hours — cut 04 if behind (see above)
 
-### COMMITTEE_KEYWORDS (fixed asset — use in NB04 and NB05)
+### COMMITTEE_KEYWORDS (fixed asset — use in NB04)
 ```python
 COMMITTEE_KEYWORDS = {
     "Justice Committee": [
@@ -328,7 +308,7 @@ COMMITTEE_KEYWORDS = {
 | Setup cell: "Could not find LLM_BASE_URL" | File still named .env.example, saved in notebooks/, or not saved |
 | ModuleNotFoundError | Wrong kernel — select .venv in the top-right kernel picker |
 | Slow responses | Several participants share each machine; spread participants across machines |
-| XML fetch fails | NB04 reads data/privacy-act-2020.xml locally; no fetch needed |
-| NB05 over time | Designated cut — skip cleanly |
+| Givealittle data download fails | NB05 downloads data/givealittle_health.csv from GitHub; check internet access |
+| NB04 over time | Designated cut — skip cleanly |
 | Participants stuck | Encourage skipping and continuing — errors expected |
-| Jaccard function errors | Pre-test function in both NB04 and NB05 before delivery |
+| Jaccard function errors | Pre-test function in NB04 before delivery |

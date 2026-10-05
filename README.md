@@ -19,8 +19,8 @@ On the day, connect to the university VPN, open each notebook from the `notebook
 | 01 — Environment setup | `notebooks/01-environment-setup.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/01-environment-setup.ipynb) |
 | 02 — LLMs as research instruments | `notebooks/02-llms-as-instruments.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/02-llms-as-instruments.ipynb) |
 | 03 — Exploratory analysis | `notebooks/03-prompt-engineering.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/03-prompt-engineering.ipynb) |
-| 04 — Thematic analysis and validation | `notebooks/04-thematic-analysis.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/04-thematic-analysis.ipynb) |
-| 05 — Visual feature extraction | `notebooks/05-visual-extraction.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/05-visual-extraction.ipynb) |
+| 04 — Visual feature extraction | `notebooks/04-visual-extraction.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/04-visual-extraction.ipynb) |
+| 05 — Looping an LLM over many documents | `notebooks/05-looping-over-documents.ipynb` | [View](https://github.com/TD-Johnson/embedding-llms-unstructured-data-workshop/blob/main/notebooks/05-looping-over-documents.ipynb) |
 
 ---
 
