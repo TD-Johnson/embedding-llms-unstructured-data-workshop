@@ -28,8 +28,8 @@ Episode → Paper component mapping:
 04 → Cross-modal application: same pipeline, image data;
       Jaccard validation against committee domains (Step 6)
 05 → Extraction at scale + Semantic Enrichment + Validation
-      (Steps 2 + 4 + 5): loop over many documents, themes from
-      per-document summaries, check against an independent reference
+      (Steps 2 + 4 + 5): loop over many documents, check against an
+      independent reference
 
 ### Primary dataset
 Privacy Act 2020 (used in NB01–NB03)
@@ -259,19 +259,16 @@ vs confident on well-known ones like the Privacy Act
              load the CSV, look at one campaign first
      Part 3: The extraction loop — text + hero photo per campaign,
              capped by MAX_CAMPAIGNS on a random sample; location held
-             back on purpose for Part 5
-     Part 4: Themes across campaigns — combine the per-campaign
-             summaries in one call and ask for 3-5 themes
-     Part 5: Checking the LLM's work
+             back on purpose for Part 4
+     Part 4: Checking the LLM's work
              - Check 1: spot check one campaign yourself
              - Check 2: compare the model's region against the
                held-back location (independent reference)
              - Check 3: fields that nobody could verify
      Optional stretch: reuse the pattern on your own documents
 
-     Outcomes: loop → gather → check pattern; themes from summaries;
-               a loop multiplies whatever the prompt does, so check
-               before scaling up
+     Outcomes: loop → gather → check pattern; a loop multiplies
+               whatever the prompt does, so check before scaling up
 
 06 — Wrap up (10 mins)
      Format: Powerpoint + discussion
