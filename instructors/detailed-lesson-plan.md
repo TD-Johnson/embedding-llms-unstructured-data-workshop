@@ -59,10 +59,12 @@ vs confident on well-known ones like the Privacy Act
      - Python cells as calculator
      - Variables and print()
      - Base URL + API key stored in .env (rename .env.example)
-     - Run setup cell → "Setup complete."
-     - Ping the Dell Pro Max (client.models.list()) → "The machine is
-       ready." Confirms VPN, API key and loaded model. No chat call —
-       participants do not talk to the LLM until NB02.
+     - Run setup cell → "Setup complete." The setup cell contacts the
+       Dell Pro Max and looks up its model (client.models.list()), so
+       it confirms VPN and API key.
+     - See which model you are using: print everything the machine serves
+       next to MODEL. No chat call — participants do not talk to the LLM
+       until NB02.
      Framing sentence: "Step 1 of the paper's workflow is ingestion —
      parsing the XML files NZ government publishes for every Act.
      By the end of this notebook you will have exactly that."
@@ -159,6 +161,30 @@ vs confident on well-known ones like the Privacy Act
      LLM surfaced something you missed, or your check caught an error.
      Tai et al. reported ~86% agreement — how does today's rate
      compare? What changes at 500 sections vs 1?
+
+     Test yourself [~5 mins, cut Q1 code if behind]:
+     Two questions before "What you accomplished". Answers are not in
+     the learner notebook — go through them as a group.
+     - Q1 — Fix a weak prompt. Learners rewrite
+       "Tell me about this. Keep it short." for <25 words, plain
+       English, no preamble, community law centre volunteer audience.
+       Answer (a): all four layers are missing. "Keep it short" is not
+       a measurable word limit. Answer (b): accept any version that
+       runs and comes in under 25 words. A good answer has a system
+       message with a role/perspective, plus a user message with a
+       numeric limit, "plain English", and "return only the summary,
+       no preamble".
+     - Q2 — A convincing explanation (multiple choice). The LLM
+       justifies consent=1 by quoting "express written consent",
+       which is not in the passage.
+       Answer: C. The quote is a hallucination; the checking cell
+       prints False. Point out that consent is still arguably present
+       via IPP 11(c) "authorised by the individual concerned", so 1
+       may be the right code — but you get there by checking the
+       source, not by trusting a confident explanation (A) or
+       dismissing the LLM out of habit (B). D (re-running until it
+       agrees) is cherry-picking, which is a validity problem in
+       itself.
 
      Bridge to NB04: "You controlled output through prompt structure
      and tested coding reliability against your own judgement. NB04
